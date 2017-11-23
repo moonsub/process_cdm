@@ -99,7 +99,8 @@ class CdmToTrainDataConverter():
         
         person_date_diagnosis = self.get_visit_diagnosis_map(admissions)
         all_patient_diagnosis = []
-        for date_diagnosis in person_date_diagnosis.values():
+        all_person_id = []
+        for person_id, date_diagnosis in person_date_diagnosis.items():
             if len(date_diagnosis) > 1:
                 one_patient_diagnosis = []
                 for diagnosis in date_diagnosis.values():
@@ -108,8 +109,9 @@ class CdmToTrainDataConverter():
                 
                 if len(one_patient_diagnosis) > 1:
                     all_patient_diagnosis.append(one_patient_diagnosis)
-            
-        return all_patient_diagnosis
+                    all_person_id.append(person_id)
+
+        return all_person_id, all_patient_diagnosis
 
     def get_diagnosis_indice(self):
         return self.diagnosis_indice
